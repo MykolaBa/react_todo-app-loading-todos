@@ -16,6 +16,14 @@ export const Footer: React.FC<Props> = ({
   activeTodosCount,
   hasCompleted,
 }) => {
+  const handleFilterChange = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    value: FilterStatus,
+  ) => {
+    e.preventDefault();
+    setFilterStatus(value);
+  };
+
   return (
     <footer className="todoapp__footer" data-cy="Footer">
       <span className="todo-count" data-cy="TodosCounter">
@@ -29,10 +37,7 @@ export const Footer: React.FC<Props> = ({
             key={filter.value}
             href={`#/${filter.value}`}
             className={`filter__link ${filterStatus === filter.value ? 'selected' : ''}`}
-            onClick={e => {
-              e.preventDefault();
-              setFilterStatus(filter.value);
-            }}
+            onClick={e => handleFilterChange(e, filter.value)}
             data-cy={`FilterLink${filter.label}`}
           >
             {filter.label}
