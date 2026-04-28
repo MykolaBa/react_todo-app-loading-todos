@@ -6,6 +6,7 @@ import { Todo } from './types/Todo';
 import { FilterStatus } from './types/FilterStatus';
 import { Filter } from './types/Filter';
 
+import { Header } from './components/Header';
 import { TodoList } from './components/TodoList';
 import { Footer } from './components/Footer';
 import { UserWarning } from './UserWarning';
@@ -92,28 +93,11 @@ export const App: React.FC = () => {
       <h1 className="todoapp__title">todos</h1>
 
       <div className="todoapp__content">
-        <header className="todoapp__header">
-          {/* this button should have `active` class only if all todos are completed */}
-          <button
-            type="button"
-            className={`todoapp__toggle-all ${allCompleted ? 'active' : ''}`}
-            onClick={() => {
-              handleToggleAll();
-            }}
-            data-cy="ToggleAllButton"
-          />
-
-          {/* Add a todo on form submit */}
-          <form>
-            <input
-              ref={inputRef}
-              data-cy="NewTodoField"
-              type="text"
-              className="todoapp__new-todo"
-              placeholder="What needs to be done?"
-            />
-          </form>
-        </header>
+        <Header
+          allCompleted={allCompleted}
+          onToggleAll={handleToggleAll}
+          inputRef={inputRef}
+        />
 
         {todos.length > 0 && (
           <TodoList todos={filteredTodos} onToggle={handleToggle} />
